@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<title>Especialización en Sistemas de Información (Geográfica)</title>
+<style type="text/css">
+@font-face {
+	font-family: "My Custom Font";
+	src: url(font/coldnightforalligators.ttf) format('truetype');
+}
+
+.customfont {
+	font-family: "My Custom Font", Verdana, Tahoma;
+}
+</style>
+
+</head>
+<body ng-app="myApp">
+	<div ng-controller="PersonController as personCtrl">
+		<h1>Programación Orientada a Objetos - Juan Molina & Juan Beltran</h1>
+		<img src="img/dead.jpg" alt="Smiley face" width="512" height="384"
+			style="margin: -20px 0 -349px 386px;">
+		<form name="personForm" method="POST">
+			<table>
+				<tr>
+					<td colspan="2">
+						<div ng-if="personCtrl.flag != 'edit'">
+							<h3>Agregar Persona</h3>
+						</div>
+						<div ng-if="personCtrl.flag == 'edit'">
+							<h3>Actualizar Persona por ID: {{ personCtrl.person.id }}</h3>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Nombre:</td>
+					<td><input type="text" name="name"
+						ng-model="personCtrl.person.nombre" required /> <span
+						ng-show="personForm.name.$error.required"
+						class="customfont msg-val"
+						style="font-size: 66px; margin: 0 0 0 44px;">El nombre es
+							requerido.</span></td>
+				</tr>
+				<tr>
+					<td>Lugar:</td>
+					<td><input type="text" name="location"
+						ng-model="personCtrl.person.lugar" required /> <span
+						ng-show="personForm.location.$error.required"
+						class="customfont msg-val"
+						style="font-size: 66px; margin: 0 0 0 44px;">Lugar es
+							requerido.</span></td>
+				</tr>
+				<tr>
+					<td colspan="2"><span ng-if="personCtrl.flag=='created'"
+						class="msg-success">Persona añadida exitosamente.</span> <span
+						ng-if="personCtrl.flag=='failed'" class="msg-val">La
+							Persona ya existe.</span></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div ng-if="personCtrl.flag != 'edit'">
+							<input type="submit" ng-click="personCtrl.addPerson()"
+								value="Añadir Persona" /> <input type="button"
+								ng-click="personCtrl.reset()" value="Limpiar" />
+						</div>
+						<div ng-if="personCtrl.flag == 'edit'">
+							<input type="submit" ng-click="personCtrl.updatePersonDetail()"
+								value="Actualizar Persona" /> <input type="button"
+								ng-click="personCtrl.cancelUpdate()" value="Cancelar" />
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><span ng-if="personCtrl.flag=='deleted'"
+						class="msg-success">Persona borrada satisfactoriamente.</span>
+				</tr>
+			</table>
+		</form>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Lugar</th>
+			</tr>
+			<tr ng-repeat="row in personCtrl.persons">
+				<td><span ng-bind="row.id"></span></td>
+				<td><span ng-bind="row.nombre"></span></td>
+				<td><span ng-bind="row.lugar"></span></td>
+				<td><input type="button"
+					ng-click="personCtrl.deletePerson(row.id)" value="Borrar" /> <input
+					type="button" ng-click="personCtrl.editPerson(row.id)"
+					value="Editar" /> <span
+					ng-if="personCtrl.flag=='updated' && row.id==personCtrl.updatedId"
+					class="msg-success">Persona Actualizada Exitosamente.</span></td>
+			</tr>
+		</table>
+
+
+	</div>
+
+	<div ng-controller="BicicletController as bicicletCtrl">
+		<form name="bicicletForm" method="POST">
+			<table>
+				<tr>
+					<td colspan="2">
+						<div ng-if="bicicletCtrl.flag != 'edit'">
+							<h3>Agregar Bicicleta</h3>
+						</div>
+						<div ng-if="bicicletCtrl.flag == 'edit'">
+							<h3>Actualizar Bicicleta por ID: {{ bicicletCtrl.biciclet.id
+								}}</h3>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Nombre:</td>
+					<td><input type="text" name="name"
+						ng-model="bicicletCtrl.biciclet.nombre" required /> <span
+						ng-show="personForm.name.$error.required"
+						class="customfont msg-val"
+						style="font-size: 66px; margin: 0 0 0 44px;">El nombre es
+							requerido.</span></td>
+				</tr>
+				<tr>
+					<td>Lugar:</td>
+					<td><input type="text" name="location"
+						ng-model="bicicletCtrl.biciclet.lugar" required /> <span
+						ng-show="personForm.location.$error.required"
+						class="customfont msg-val"
+						style="font-size: 66px; margin: 0 0 0 44px;">Lugar es
+							requerido.</span></td>
+				</tr>
+				<tr>
+					<td>Marca:</td>
+					<td><input type="text" name="location"
+						ng-model="bicicletCtrl.biciclet.marca" required /> <span
+						ng-show="personForm.location.$error.required"
+						class="customfont msg-val"
+						style="font-size: 66px; margin: 0 0 0 44px;">Lugar es
+							requerido.</span></td>
+				</tr>
+				<tr>
+					<td colspan="2"><span ng-if="bicicletCtrl.flag=='created'"
+						class="msg-success">Bicicleta añadida exitosamente.</span> <span
+						ng-if="bicicletCtrl.flag=='failed'" class="msg-val">La
+							Bicicleta ya existe.</span></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div ng-if="bicicletCtrl.flag != 'edit'">
+							<input type="submit" ng-click="bicicletCtrl.addBiciclet()"
+								value="Añadir Bicicleta" /> <input type="button"
+								ng-click="bicicletCtrl.reset()" value="Limpiar" />
+						</div>
+						<div ng-if="bicicletCtrl.flag == 'edit'">
+							<input type="submit"
+								ng-click="bicicletCtrl.updateBicicletDetail()"
+								value="Actualizar Bicicleta" /> <input type="button"
+								ng-click="bicicletCtrl.cancelUpdate()" value="Cancelar" />
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><span ng-if="bicicletCtrl.flag=='deleted'"
+						class="msg-success">Bicicleta borrada satisfactoriamente.</span>
+				</tr>
+			</table>
+		</form>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Lugar</th>
+				<th>Marca</th>
+			</tr>
+			<tr ng-repeat="row in bicicletCtrl.biciclets">
+				<td><span ng-bind="row.id"></span></td>
+				<td><span ng-bind="row.nombre"></span></td>
+				<td><span ng-bind="row.lugar"></span></td>
+				<td><span ng-bind="row.marca"></span></td>
+				<td><input type="button"
+					ng-click="bicicletCtrl.deleteBiciclet(row.id)" value="Borrar" /> <input
+					type="button" ng-click="bicicletCtrl.editBiciclet(row.id)"
+					value="Editar" /> <span
+					ng-if="bicicletCtrl.flag=='updated' && row.id==bicicletCtrl.updatedId"
+					class="msg-success">Bicicleta Actualizada Exitosamente.</span></td>
+			</tr>
+		</table>
+	</div>
+
+	<script src="lib/angular.min.js"></script>
+	<script src="lib/angular-resource.min.js"></script>
+	<script src="js/app.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+</body>
+</html>
